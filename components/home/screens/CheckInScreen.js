@@ -1,14 +1,15 @@
-import { Camera } from 'expo-camera';
+import { Camera } from 'expo-camera'; // Đảm bảo import từ 'expo-camera'
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 
 const CheckInScreen = () => {
     const [hasPermission, setHasPermission] = useState(null);
     const [cameraRef, setCameraRef] = useState(null);
+    console.log(Camera);
 
     useEffect(() => {
         (async () => {
-            const { status } = await Camera.requestPermissionsAsync();
+            const { status } = await Camera.requestCameraPermissionsAsync(); // Đúng cách gọi hàm yêu cầu quyền
             setHasPermission(status === 'granted');
             if (status !== 'granted') {
                 Alert.alert('Permission Denied', 'Camera access is required for check-in.');
@@ -34,7 +35,7 @@ const CheckInScreen = () => {
         <View style={styles.container}>
             <Camera
                 style={styles.camera}
-                type={Camera.Constants.Type.front}
+                type={Camera.Constants.Type.front} // Sử dụng đúng cách
                 onFacesDetected={handleFaceDetected}
                 ref={ref => setCameraRef(ref)}
                 faceDetectorSettings={{

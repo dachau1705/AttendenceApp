@@ -7,7 +7,7 @@ const BaseForm = ({ onSubmit, children }) => {
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.form}>
-                {children}  {/* Render child components (inputs, etc.) */}
+                {children}
                 <Button title="Submit" onPress={onSubmit} />
             </View>
         </ScrollView>

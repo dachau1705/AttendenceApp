@@ -1,73 +1,81 @@
 // EditProfile.js
-import React, { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../../../redux/actions';
+import BaseForm from '../../UI/forms/BaseForm';
 
-const EditProfile = ({ route, navigation }) => {
+const EditProfile = ({ navigation }) => {
     const dispatch = useDispatch();
-    const { username, age, position, code, dob } = route.params;
+    const [username, setUsername] = React.useState('');
+    const [age, setAge] = React.useState('');
+    const [position, setPosition] = React.useState('');
+    const [code, setCode] = React.useState('');
+    const [dob, setDob] = React.useState('');
 
-    const [newUsername, setNewUsername] = useState(username);
-    const [newAge, setNewAge] = useState(age);
-    const [newPosition, setNewPosition] = useState(position);
-    const [newCode, setNewCode] = useState(code);
-    const [newDob, setNewDob] = useState(dob);
-
-    const handleSaveProfile = () => {
-        dispatch(updateUserProfile({ username: newUsername, age: newAge, position: newPosition, code: newCode, dob: newDob }));
-        navigation.goBack(); // Navigate back after saving
+    const handleSave = () => {
+        const profileData = {
+            username,
+            age: parseInt(age),
+            position,
+            code,
+            dob,
+        };
+        dispatch(updateUserProfile(profileData));
+        navigation.goBack();
     };
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                placeholder="Username"
-                value={newUsername}
-                onChangeText={setNewUsername}
-                style={styles.input}
-            />
-            <TextInput
-                placeholder="Age"
-                value={String(newAge)}
-                onChangeText={text => setNewAge(Number(text))}
-                style={styles.input}
-                keyboardType="numeric"
-            />
-            <TextInput
-                placeholder="Employee Code"
-                value={newCode}
-                onChangeText={setNewCode}
-                style={styles.input}
-            />
-            <TextInput
-                placeholder="Job Position"
-                value={newPosition}
-                onChangeText={setNewPosition}
-                style={styles.input}
-            />
-            <TextInput
-                placeholder="Date of Birth"
-                value={newDob}
-                onChangeText={setNewDob}
-                style={styles.input}
-            />
-            <Button title="Save" onPress={handleSaveProfile} />
-        </View>
+        <BaseForm onSubmit={handleSave}>
+            <View>
+                <Text>Username</Text>
+                <TextInput
+                    placeholder="Username"
+                    style={styles.input}
+                    value={username}
+                    onChangeText={setUsername}
+                />
+                <Text>Age</Text>
+                <TextInput
+                    placeholder="Age"
+                    style={styles.input}
+                    value={age}
+                    keyboardType="numeric"
+                    onChangeText={setAge}
+                />
+                <Text>Position</Text>
+                <TextInput
+                    placeholder="Position"
+                    style={styles.input}
+                    value={position}
+                    onChangeText={setPosition}
+                />
+                <Text>Employee Code</Text>
+                <TextInput
+                    placeholder="Employee Code"
+                    style={styles.input}
+                    value={code}
+                    onChangeText={setCode}
+                />
+                <Text>Date of Birth</Text>
+                <TextInput
+                    placeholder="Date of Birth"
+                    style={styles.input}
+                    value={dob}
+                    onChangeText={setDob}
+                />
+            </View>
+        </BaseForm>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-    },
     input: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
         marginBottom: 10,
-        paddingLeft: 10,
+        padding: 10,
     },
 });
 

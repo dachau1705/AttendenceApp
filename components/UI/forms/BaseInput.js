@@ -6,14 +6,14 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 const BaseInput = ({ label, value, onChangeText, placeholder, secureTextEntry = false }) => {
     return (
         <View style={styles.container}>
-            {label && <Text style={styles.label}>{label}</Text>} {/* Hiển thị nhãn nếu có */}
+            {label && <Text style={styles.label}>{label}</Text>}
             <TextInput
                 style={styles.input}
                 value={value}
                 onChangeText={onChangeText}
                 placeholder={placeholder}
-                secureTextEntry={secureTextEntry} // Sử dụng cho mật khẩu
-                autoCapitalize="none" // Chuyển đổi chữ hoa
+                secureTextEntry={secureTextEntry}
+                autoCapitalize="none"
             />
         </View>
     );
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         marginBottom: 5,
-        color: '#333', // Màu chữ nhãn
+        color: '#333',
     },
     input: {
         height: 40,
