@@ -1,10 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import AttendanceSheetScreen from '../components/attendence/screens/AttendanceSheetScreen';
 import Register from '../components/auth/screens/Register';
 import SignIn from '../components/auth/screens/SignIn';
 import CheckInScreen from '../components/home/screens/CheckInScreen';
 import CheckOutScreen from '../components/home/screens/CheckOutScreen';
 import HomeScreen from '../components/home/screens/HomeScreen';
+import EditProfile from '../components/users/screens/EditProfile';
 import UserProfile from '../components/users/screens/UserProfile';
 
 // Create the Stack Navigator
@@ -28,9 +30,7 @@ const StackNavigator = () => {
             <Stack.Screen
                 name="SignIn"
                 component={SignIn}
-                options={{
-                    title: 'Sign In',
-                }}
+                options={{ headerShown: false }} // Ẩn header cho màn hình SignIn
             />
 
             {/* Register Screen */}
@@ -75,6 +75,21 @@ const StackNavigator = () => {
                 component={UserProfile}
                 options={{
                     title: 'User Profile', // Customize the title
+                }}
+            />
+
+            <Stack.Screen
+                name="AttendanceSheetScreen"
+                component={AttendanceSheetScreen}
+                options={{
+                    title: 'Attendance Sheet', // Customize the title
+                }}
+            />
+            <Stack.Screen
+                name="EditProfile"
+                component={EditProfile}
+                options={{
+                    title: 'Edit Profile', // Customize the title
                 }}
             />
         </Stack.Navigator>

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const SignInScreen = ({ navigation }) => {
     const [username, setUsername] = useState('');
@@ -35,63 +35,117 @@ const SignInScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Sign In</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Username"
-                value={username}
-                onChangeText={setUsername}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-            />
-            <TouchableOpacity onPress={() => setRememberMe(!rememberMe)}>
-                <Text style={styles.rememberMe}>{rememberMe ? '✔ Remember Me' : '✖ Remember Me'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                <Text style={styles.buttonText}>Sign In</Text>
-            </TouchableOpacity>
-        </View>
+        <ImageBackground
+            source={{ uri: 'https://i.pinimg.com/enabled_hi/564x/15/7f/14/157f1437d0da775fb6f478fb9c48160e.jpg' }} // Thay thế với URL của hình ảnh bạn muốn sử dụng
+            style={styles.background}
+            resizeMode="cover" // Đảm bảo hình ảnh được bao phủ toàn bộ màn hình
+        >
+            <View style={styles.container}>
+                <Text style={styles.title}>Sign In</Text>
+
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Username</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter your username"
+                        value={username}
+                        onChangeText={setUsername}
+                    />
+                </View>
+
+                <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Password</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Enter your password"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                    />
+                </View>
+
+                <TouchableOpacity style={styles.checkboxContainer} onPress={() => setRememberMe(!rememberMe)}>
+                    <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]} />
+                    <Text style={styles.rememberMeText}>Remember Me</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                    <Text style={styles.buttonText}>Sign In</Text>
+                </TouchableOpacity>
+            </View>
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    background: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    container: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Màu nền trắng với độ trong suốt để tạo hiệu ứng
+        borderRadius: 10,
+        padding: 20,
+        margin: 20,
+        width: '90%', // Tùy chỉnh chiều rộng để tránh vươn ra ngoài màn hình
     },
     title: {
         fontSize: 24,
         marginBottom: 20,
     },
+    inputContainer: {
+        width: '100%', // Thay đổi chiều rộng để sử dụng toàn bộ chiều rộng của container
+        marginBottom: 15,
+    },
+    label: {
+        fontSize: 16,
+        color: '#333', // Màu chữ của nhãn
+        marginBottom: 5,
+    },
     input: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
-        marginBottom: 10,
-        width: '80%',
         paddingHorizontal: 10,
+        borderRadius: 5,
+        width: '100%', // Thay đổi chiều rộng để sử dụng toàn bộ chiều rộng của container
     },
     button: {
         backgroundColor: '#4CAF50',
         padding: 10,
-        width: '80%',
+        width: '100%', // Thay đổi chiều rộng để sử dụng toàn bộ chiều rộng của container
         alignItems: 'center',
         marginTop: 10,
+        borderRadius: 5,
     },
     buttonText: {
         color: '#fff',
         fontSize: 18,
     },
-    rememberMe: {
+    checkboxContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 10,
-        color: 'blue',
+        width: '100%', // Thay đổi chiều rộng để sử dụng toàn bộ chiều rộng của container
+    },
+    checkbox: {
+        height: 20,
+        width: 20,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        marginRight: 10,
+        backgroundColor: 'white',
+    },
+    checkboxChecked: {
+        backgroundColor: '#4CAF50',
+    },
+    rememberMeText: {
+        fontSize: 16,
+        color: '#333',
     },
 });
 
